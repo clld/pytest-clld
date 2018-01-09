@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="pytest-clld",
-    version="0.1",
+    version="0.2",
     packages=['pytest_clld'],
     install_requires=[
         'pytest>=3.1', 
@@ -13,7 +13,7 @@ setup(
         'six',
         'pyramid>=1.6',
         'mock',
-        'html5lib>=1.0.1',
+        'html5lib',
         'webob',
     ],
     entry_points={

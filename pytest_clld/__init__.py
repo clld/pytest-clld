@@ -39,8 +39,7 @@ def db():
     from clld.db.meta import Base, DBSession, VersionedDBSession
 
     engine = create_engine('sqlite://')
-    Base.metadata.bind = engine
-    Base.metadata.create_all()
+    Base.metadata.create_all(bind=engine)
     DBSession.configure(bind=engine)
     VersionedDBSession.configure(bind=engine)
     yield engine
