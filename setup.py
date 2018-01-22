@@ -2,8 +2,8 @@ from setuptools import setup
 
 
 setup(
-    name="pytest-clld",
-    version="0.3",
+    name='pytest-clld',
+    version='0.4.dev0',
     packages=['pytest_clld'],
     install_requires=[
         'pytest>=3.1', 
@@ -19,10 +19,10 @@ setup(
     ],
     entry_points={
         'pytest11': [
-            'clld = pytest_clld',
+            'pytest_clld = pytest_clld.plugin',
         ]
     },
     classifiers=[
-        "Framework :: Pytest",
+        'Framework :: Pytest',
     ],
 )
