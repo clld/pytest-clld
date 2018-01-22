@@ -14,16 +14,16 @@ git commit -a -m"bumped version number"
 git tag -a v<version> -m"first version to be released on pypi"
 ```
 
-- Push to github:
-```
-git push origin
-git push --tags
-```
-
 - Release to PyPI:
 ```
 git checkout tags/v$1
 rm dist/*
 python setup.py sdist bdist_wheel
 twine upload dist/*
+```
+
+- Push to github:
+```
+git push origin
+git push --tags
 ```
