@@ -62,7 +62,7 @@ class DataTable(_selenium_common.PageObject):  # pragma: no cover
             filter_.send_keys(value)
         self.sleep(sleep_ticks)
 
-    def sort(self, label, sleep_ticks=10):
+    def sort(self, label, sleep=2.5):
         """Trigger a table sort by clicking on the th Element specified by label."""
         sort = None
         for e in self.e.find_elements_by_xpath("//th"):
@@ -70,7 +70,7 @@ class DataTable(_selenium_common.PageObject):  # pragma: no cover
                 sort = e
         assert sort
         sort.click()
-        self.sleep(sleep_ticks)
+        self.sleep(sleep, tick=1.0)
 
     def download(self, fmt):
         opener = self.e.find_element_by_id('dt-dl-opener')
