@@ -6,11 +6,10 @@ setup(
     version='0.4.1.dev0',
     packages=['pytest_clld'],
     install_requires=[
-        'pytest>=3.1', 
+        'pytest>=3.6', 
         'clld',
         'sqlalchemy>=1.0',
         'WebTest>=1.3.1',
-        'six',
         'pyramid>=1.6',
         'mock',
         'html5lib',

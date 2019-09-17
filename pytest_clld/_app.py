@@ -2,7 +2,6 @@ import json
 import contextlib
 import xml.etree.cElementTree as etree
 
-import six
 import mock
 import webtest
 import html5lib
@@ -54,7 +53,7 @@ class ExtendedTestApp(webtest.TestApp):
         return res
 
     def get_json(self, *args, **kw):
-        _loads = lambda s: json.loads(six.text_type(s, encoding='utf8'))
+        _loads = lambda s: json.loads(str(s, encoding='utf8'))
         return self.get(*args, _parse_body=_loads, **kw)
 
     def get_xml(self, *args, **kw):
