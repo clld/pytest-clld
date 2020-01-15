@@ -1,4 +1,5 @@
 import threading
+
 from selenium import webdriver
 from wsgiref.simple_server import WSGIRequestHandler, make_server
 

@@ -56,17 +56,15 @@ def dbschema(scope='session'):
 
 @pytest.fixture(scope='session')
 def db(url='sqlite://'):
-    from clld.db.meta import Base, DBSession, VersionedDBSession
+    from clld.db.meta import Base, DBSession
 
     engine = sa.create_engine(url)
     Base.metadata.create_all(bind=engine)
     DBSession.configure(bind=engine)
-    VersionedDBSession.configure(bind=engine)
 
     yield engine
 
     DBSession.close()
-    VersionedDBSession.close()
 
 
 @pytest.fixture(scope='session')
