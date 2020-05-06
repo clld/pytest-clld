@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='pytest-clld',
-    version='1.0.0',
+    version='1.0.1',
     packages=['pytest_clld'],
     install_requires=[
         'pytest>=3.6', 
