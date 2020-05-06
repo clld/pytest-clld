@@ -49,7 +49,9 @@ class ExtendedTestApp(webtest.TestApp):
         child_nodes = list(self.parsed_body.getchildren())
         assert child_nodes
         if docroot:
-            assert list(child_nodes[1].getchildren())[0].tag.endswith(docroot)
+            for e in child_nodes[1]:
+                assert e.tag.endswith(docroot)
+                break
         return res
 
     def get_json(self, *args, **kw):
