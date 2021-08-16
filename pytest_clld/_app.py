@@ -46,7 +46,7 @@ class ExtendedTestApp(webtest.TestApp):
     def get_html(self, *args, **kw):
         docroot = kw.pop('docroot', None)
         res = self.get(*args, _parse_body=html5lib.parse, **kw)
-        child_nodes = list(self.parsed_body.getchildren())
+        child_nodes = list(self.parsed_body)
         assert child_nodes
         if docroot:
             for e in child_nodes[1]:

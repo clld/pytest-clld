@@ -60,7 +60,7 @@ def db(url='sqlite://'):
 
     engine = sa.create_engine(url)
     Base.metadata.create_all(bind=engine)
-    DBSession.configure(bind=engine)
+    DBSession.configure(bind=engine, expire_on_commit=False)
 
     yield engine
 
