@@ -1,8 +1,8 @@
 import json
 import contextlib
 import xml.etree.cElementTree as etree
+from unittest import mock
 
-import mock
 import webtest
 import html5lib
 from webob.request import environ_add_POST
@@ -55,7 +55,8 @@ class ExtendedTestApp(webtest.TestApp):
         return res
 
     def get_json(self, *args, **kw):
-        _loads = lambda s: json.loads(str(s, encoding='utf8'))
+        def _loads(s):
+            return json.loads(str(s, encoding='utf8'))
         return self.get(*args, _parse_body=_loads, **kw)
 
     def get_xml(self, *args, **kw):

@@ -79,13 +79,7 @@ def selenium(pytestconfig, logger='selenium.webdriver.remote.remote_connection')
 
     appini = pytestconfig.getoption('appini')
     app = paster.bootstrap(appini)['app']
-    res = _selenium.Selenium(app, '127.0.0.1:8880', tempfile.mkdtemp())
-    res.server.start()
-    res.sleep()
-    assert res.server.srv
+    with _selenium.Selenium(app, '127.0.0.1:8880', tempfile.mkdtemp()) as driver:
+        yield driver
 
-    yield res
-
-    res.browser.quit()
-    res.server.quit()
-    shutil.rmtree(res.downloads)
+    shutil.rmtree(driver.downloads)

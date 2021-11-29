@@ -1,3 +1,4 @@
+from selenium.webdriver.common.by import By
 from . import _selenium_common
 
 
@@ -10,16 +11,16 @@ class Map(_selenium_common.PageObject):  # pragma: no cover
 
     def test_show_marker(self, index=0):
         self.sleep(2)
-        assert not self.e.find_elements_by_class_name('leaflet-popup-content')
-        marker = self.e.find_elements_by_class_name('leaflet-marker-icon')
+        assert not self.e.find_elements(By.CLASS_NAME, 'leaflet-popup-content')
+        marker = self.e.find_elements(By.CLASS_NAME, 'leaflet-marker-icon')
         marker[0].click()
         self.sleep(3)
-        assert self.e.find_elements_by_class_name('leaflet-popup-content')
+        assert self.e.find_elements(By.CLASS_NAME, 'leaflet-popup-content')
 
     def test_show_legend(self, name='iconsize'):
-        e = self.e.find_element_by_id('legend-%s-container' % name)
+        e = self.e.find_element(By.ID, 'legend-%s-container' % name)
         assert not e.is_displayed()
-        opener = self.e.find_element_by_id('legend-%s-opener' % name)
+        opener = self.e.find_element(By.ID, 'legend-%s-opener' % name)
         opener.click()
         self.sleep()
         assert e.is_displayed()

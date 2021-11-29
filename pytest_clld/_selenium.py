@@ -1,7 +1,9 @@
+import time
 import threading
+from wsgiref.simple_server import WSGIRequestHandler, make_server
 
 from selenium import webdriver
-from wsgiref.simple_server import WSGIRequestHandler, make_server
+from selenium.webdriver.firefox.options import Options
 
 from . import _selenium_common, _selenium_map, _selenium_datatable
 
@@ -52,13 +54,25 @@ class Selenium(object):
     def __init__(self, app, host, downloads):
         self.host = host
         self.downloads = downloads
-        profile = webdriver.firefox.firefox_profile.FirefoxProfile()
-        profile.set_preference('browser.download.folderList', 2)
-        profile.set_preference('browser.download.manager.showWhenStarting', False)
-        profile.set_preference('browser.download.dir', downloads)
-        profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/x-bibtex')
-        self.browser = webdriver.Firefox(firefox_profile=profile)
+
+        options = Options()
+        options.set_preference('browser.download.folderList', 2)
+        options.set_preference('browser.download.manager.showWhenStarting', False)
+        options.set_preference('browser.download.dir', downloads)
+        options.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/x-bibtex')
+        self.browser = webdriver.Firefox(options=options)
         self.server = self.server_cls(app, host)
+
+    def __enter__(self):
+        self.browser = self.browser.__enter__()
+        self.server.start()
+        while not self.server.srv:
+            time.sleep(0.1)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.browser.__exit__(exc_type, exc_val, exc_tb)
+        self.server.quit()
 
     def url(self, path):
         return 'http://%s%s' % (self.host, path)

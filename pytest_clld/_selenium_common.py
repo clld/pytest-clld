@@ -1,5 +1,7 @@
 import time
 
+from selenium.webdriver.common.by import By
+
 SLEEP_TICK = 0.3
 
 
@@ -27,6 +29,6 @@ class PageObject(object):  # pragma: no cover
     @property
     def e(self):
         try:
-            return self.browser.find_element_by_id(self.eid)
+            return self.browser.find_element(By.ID, self.eid)
         except Exception:
-            return self.browser.find_element_by_class_name(self.eid)
+            return self.browser.find_element(By.CLASS_NAME, self.eid)
