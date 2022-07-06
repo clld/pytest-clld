@@ -74,9 +74,6 @@ class DataTable(_selenium_common.PageObject):  # pragma: no cover
         self.sleep(sleep, tick=1.0)
 
     def download(self, fmt):
-        opener = self.e.find_element(By.ID, 'dt-dl-opener')
-        link = self.e.find_element(By.ID, 'dt-dl-%s' % fmt)
-        assert not link.is_displayed()
+        # We support download links for DataTables for clld>=9.2.0
+        opener = self.e.find_element(By.ID, '{}-{}-download'.format(self.eid, fmt))
         opener.click()
-        assert link.is_displayed()
-        link.click()
