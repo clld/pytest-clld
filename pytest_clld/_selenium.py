@@ -1,9 +1,11 @@
 import time
+import pathlib
 import threading
 from wsgiref.simple_server import WSGIRequestHandler, make_server
 
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 
 from . import _selenium_common, _selenium_map, _selenium_datatable
 
@@ -60,7 +62,12 @@ class Selenium(object):
         options.set_preference('browser.download.manager.showWhenStarting', False)
         options.set_preference('browser.download.dir', downloads)
         options.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/x-bibtex')
-        self.browser = webdriver.Firefox(options=options)
+        kw = dict(options=options)
+        # Compat with Ubuntu 24.04:
+        gd = pathlib.Path('/snap/bin/geckodriver')
+        if gd.exists():
+            kw['service'] = Service(executable_path=str(gd))
+        self.browser = webdriver.Firefox(**kw)
         self.server = self.server_cls(app, host)
 
     def __enter__(self):

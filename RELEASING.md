@@ -18,7 +18,7 @@ git tag -a v<version> -m"first version to be released on pypi"
 ```
 git checkout tags/v$1
 rm dist/*
-python setup.py sdist bdist_wheel
+python -m build -n
 twine upload dist/*
 ```
 
